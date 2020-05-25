@@ -7,6 +7,8 @@ class Grid {
 		}
 		this.nrows = nrows;
 		this.ncols = ncols;
+		this.rect_width = width/ncols;
+		this.rect_height = height/nrows;
 	}
 
 	display() {
@@ -22,6 +24,14 @@ class Grid {
 			line(x*i,0,x*i,height);
 			stroke(255);
 		}
+	}
+
+	getCellCenter(i,j) {
+
+		let x = (i+1/2)*this.rect_width;
+		let y = (j+1/2)*this.rect_height;
+
+		return [x,y];
 	}
 
 
