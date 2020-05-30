@@ -1,19 +1,26 @@
 class Unit {
 
-	constructor(hp,velocity,i,j){
+	constructor(hp,speed,i=-1,j=-1){
 		this.hp = hp;
-		this.velocity = velocity;
-		this.i = i;
-		this.j = j;
+		this.speed = speed;
+
+		let [x,y] = this.getCenter(i,j);
+		this.x = x;
+		this.y = y;
 	}
 
 	draw() {
-		let [x,y] = this.getCenter();
-		ellipse(x, y, 80, 80);
+		ellipse(this.x, this.y, 80, 80);
 	}
 
-	getCenter(){
-		return grid.getCellCenter(this.i,this.j);
+	getCenter(i,j) {
+		return grid.getCellCenter(i,j);
+	}
+
+	setCoordenates(i,j) {
+		let [x,y] = this.getCenter(i,j);
+		this.x = x;
+		this.y = y;
 	}
 
 
