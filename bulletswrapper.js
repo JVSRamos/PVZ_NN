@@ -9,8 +9,11 @@ class BulletWrapper {
 		this.bullets = [];
 	}
 
+	// the Parameter is an array of bullets created by the class PlantWrapper
 	addBullet(bullet) {
-		if(bullet != null) append(this.bullets, bullet);
+		for (var i = 0; i < bullet.length; i++) {
+			append(this.bullets, bullet[i]);
+		}
 	}	
 
 	move() {

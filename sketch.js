@@ -14,5 +14,9 @@ function draw() {
 
 	//Testing features
 	unit = new Plant(0,0,i=0,j=2);
-	if(frameCount == 100) grid.addUnitToCell(unit,0,2);
+	if(frameCount == 100) grid.addUnit(unit);
+	unit = new Plant(0,0,i=1,j=3);
+	if(frameCount == 150) grid.addUnit(unit);
+	unit = new Zombie(0,1,i=4,j=3);
+	if(frameCount == 200) grid.addUnit(unit);
 }

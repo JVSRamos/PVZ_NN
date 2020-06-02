@@ -12,6 +12,9 @@ class Grid {
 		}
 
 		this.bullets = new BulletWrapper();
+		this.plants = new PlantWrapper();
+		this.zombies = new ZombieWrapper();
+
 		this.nrows = nrows;
 		this.ncols = ncols;
 		this.rect_width = width/ncols;
@@ -32,6 +35,7 @@ class Grid {
 			stroke(255);
 		}
 
+/*
 		for (let i = 0; i < this.unit_map.length; i++) {
 			for (let j = 0; j < this.unit_map[i].length; j++) {
 
@@ -46,7 +50,14 @@ class Grid {
 				}    
 			}
 		}	
+*/
+		let volley = this.plants.shoot();
+		this.plants.draw();
 
+		this.zombies.move();
+		this.zombies.draw();
+
+		this.bullets.addBullet(volley);
 		this.bullets.move();
 		this.bullets.draw();
 
@@ -61,9 +72,18 @@ class Grid {
 		return [x,y];
 	}
 
+	// May be deprecated later
 	addUnitToCell(unit,i,j){
 		this.unit_map[i][j] = unit;
 		unit.setCoordenates(i,j);
+	}
+
+	addUnit(unit) {
+		if(unit instanceof Plant) this.plants.addPlant(unit);
+		if(unit instanceof Zombie) this.zombies.addZombie(unit);
+
+		// May be deleted
+		this.unit_map[i][j] = unit;
 	}
 
 
