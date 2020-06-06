@@ -1,7 +1,7 @@
 class Bullet {
 
-	constructor(dammage=1,x=-1,y=-1, speed=1) {
-		this.dammage = dammage;
+	constructor(damage=1,x=-1,y=-1, speed=1) {
+		this.damage = damage;
 		this.x = x;
 		this.y = y;
 		this.speed = speed;

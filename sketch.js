@@ -17,6 +17,6 @@ function draw() {
 	if(frameCount == 100) grid.addUnit(unit);
 	unit = new Plant(10,0,i=1,j=3);
 	if(frameCount == 150) grid.addUnit(unit);
-	unit = new Zombie(0,2,i=4,j=3);
+	unit = new Zombie(3,2,i=4,j=3);
 	if(frameCount == 200) grid.addUnit(unit);
 }

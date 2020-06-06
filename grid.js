@@ -14,7 +14,7 @@ class Grid {
 		this.bullets = new BulletWrapper();
 		this.plants = new PlantWrapper();
 		this.zombies = new ZombieWrapper();
-		this.cd = new CollisionDetector(this.plants,this.zombies);
+		this.cd = new CollisionDetector(this.plants,this.zombies,this.bullets);
 
 		this.nrows = nrows;
 		this.ncols = ncols;
