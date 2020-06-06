@@ -14,6 +14,7 @@ class Grid {
 		this.bullets = new BulletWrapper();
 		this.plants = new PlantWrapper();
 		this.zombies = new ZombieWrapper();
+		this.cd = new CollisionDetector(this.plants,this.zombies);
 
 		this.nrows = nrows;
 		this.ncols = ncols;
@@ -22,7 +23,7 @@ class Grid {
 	}
 
 	display() {
-
+		// TODO: Create a function for move and one for draw
 		for(let i = 1; i <= this.nrows;i++) {
 			let y = height/this.nrows;
 			line(0,y*i,width,y*i);
@@ -35,22 +36,6 @@ class Grid {
 			stroke(255);
 		}
 
-/*
-		for (let i = 0; i < this.unit_map.length; i++) {
-			for (let j = 0; j < this.unit_map[i].length; j++) {
-
-				let cur_unit = this.unit_map[i][j];
-
-				if(cur_unit) cur_unit.draw();
-				// need to disengage the logic from the display
-				if(cur_unit instanceof Plant) {
-
-					let bullet = cur_unit.shoot();
-					this.bullets.addBullet(bullet);
-				}    
-			}
-		}	
-*/
 		let volley = this.plants.shoot();
 		this.plants.draw();
 
@@ -60,6 +45,8 @@ class Grid {
 		this.bullets.addBullet(volley);
 		this.bullets.move();
 		this.bullets.draw();
+
+		this.cd.detectCollision();
 
 	}
 
