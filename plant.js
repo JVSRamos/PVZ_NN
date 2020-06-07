@@ -15,12 +15,13 @@ Attributes:
 */
 class Plant extends Unit {
 
-	constructor(hp=10,speed=0,i=-1,j=-1,cadence=0.01,b_speed=2, b_dam=1, curFrame=frameCount,w=80,l=80) {
+	constructor(hp=10,speed=0,i=-1,j=-1,cadence=0.01,b_speed=2, b_dam=1, curFrame=frameCount,w=80,l=80, cost=5) {
 		super(hp,speed,i,j,w,l);
 		this.cadence = cadence;
 		this.birth_time = curFrame;
 		this.b_dam = b_dam;
 		this.b_speed = b_speed;
+		this.cost = cost;
 	}	
 
 	shoot() {

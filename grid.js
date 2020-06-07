@@ -1,6 +1,6 @@
 class Grid {
 
-	constructor(nrows, ncols){
+	constructor(nrows=5, ncols=5){
 		this.unit_map = [];
 
 		// initialize the map of unities
@@ -22,7 +22,15 @@ class Grid {
 		this.rect_height = height/nrows;
 	}
 
-	display() {
+	move() {
+		let volley = this.plants.shoot();
+		this.zombies.move();
+		this.bullets.addBullet(volley);
+		this.bullets.move();
+		this.cd.detectCollision();
+	}
+
+	draw() {
 		// TODO: Create a function for move and one for draw
 		for(let i = 1; i <= this.nrows;i++) {
 			let y = height/this.nrows;
@@ -36,17 +44,9 @@ class Grid {
 			stroke(255);
 		}
 
-		let volley = this.plants.shoot();
 		this.plants.draw();
-
-		this.zombies.move();
 		this.zombies.draw();
-
-		this.bullets.addBullet(volley);
-		this.bullets.move();
 		this.bullets.draw();
-
-		this.cd.detectCollision();
 
 	}
 
@@ -59,6 +59,13 @@ class Grid {
 		return [x,y];
 	}
 
+	getGridPos(x,y) {
+		let i = floor((x/width)*this.ncols);
+		let j = floor((y/height)*this.nrows);
+
+		return [i,j];
+	}
+
 	// May be deprecated later
 	addUnitToCell(unit,i,j){
 		this.unit_map[i][j] = unit;
@@ -68,9 +75,6 @@ class Grid {
 	addUnit(unit) {
 		if(unit instanceof Plant) this.plants.addPlant(unit);
 		if(unit instanceof Zombie) this.zombies.addZombie(unit);
-
-		// May be deleted
-		this.unit_map[i][j] = unit;
 	}
 
 

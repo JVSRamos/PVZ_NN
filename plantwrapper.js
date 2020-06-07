@@ -5,7 +5,13 @@ class PlantWrapper {
 	}
 
 	addPlant(unit) {
-		if(unit != null) append(this.plants, unit);
+		// check if the place is occupied
+		let occupied = false;
+		for (var i = 0; i < this.plants.length; i++) { 
+			if(this.plants[i].x == unit.x && this.plants[i].y == unit.y) occupied = true;
+		}	
+
+		if((unit != null) && !occupied) append(this.plants, unit);	
 	}
 
 	shoot() {

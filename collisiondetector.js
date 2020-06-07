@@ -1,4 +1,4 @@
-// I might do another class to help handling the efffect of a collision
+// I might do another class CollisionResolver
 class CollisionDetector {
 
 	constructor(plants,zombies,bullets) {
@@ -19,12 +19,13 @@ class CollisionDetector {
 		for (var i = 0; i < plants.length; i++) { 
 			for (var j = 0; j < zombies.length; j++) { 
 				// TODO: check y coordenate
-				if(plants[i].x+(plants[i].width/2) == zombies[j].x-(zombies[j].width/2)) {
+				if((plants[i].x+(plants[i].width/2) == zombies[j].x-(zombies[j].width/2)) && plants[i].y == zombies[j].y) {
 					zombies[j].attacking = true;
 					plants[i].hp -= zombies[j].damage;
 					if(plants[i].hp == 0) {
 						delete plants[i];
 						plants.splice(i,1);
+						zombies[j].attacking = false;
 					}
 				}
 			}	

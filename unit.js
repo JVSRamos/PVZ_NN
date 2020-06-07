@@ -26,6 +26,5 @@ class Unit {
 		this.x = x;
 		this.y = y;
 	}
-
-
+	
 }
