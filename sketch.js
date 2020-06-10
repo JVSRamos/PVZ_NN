@@ -1,5 +1,3 @@
-// TODO: End game when zombie reach 0
-// TODO: Spawn zombies
 
 let grid;
 

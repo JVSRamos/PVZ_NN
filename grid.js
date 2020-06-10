@@ -24,10 +24,11 @@ class Grid {
 
 	move() {
 		let volley = this.plants.shoot();
+		this.cd.detectCollision();
 		this.zombies.move();
 		this.bullets.addBullet(volley);
 		this.bullets.move();
-		this.cd.detectCollision();
+		
 	}
 
 	draw() {

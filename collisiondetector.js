@@ -7,6 +7,18 @@ class CollisionDetector {
 		this.bullets = bullets;
 	}
 
+	checkPZCollision(plant, zombie) {
+
+		let lbound = plant.x-(plant.width/2);
+		let rbound = plant.x+(plant.width/2);
+		let attackpoint = zombie.x-(zombie.width/2);
+
+		if((attackpoint <= rbound && attackpoint >= lbound) && plant.y == zombie.y)
+			return true;
+		return false;
+	}
+
+
 	detectCollision() {
 
 		// looks quite confusing, because I am acessing the attribute plants from
@@ -18,14 +30,17 @@ class CollisionDetector {
 		// detecting plants collision
 		for (var i = 0; i < plants.length; i++) { 
 			for (var j = 0; j < zombies.length; j++) { 
-				// TODO: check y coordenate
-				if((plants[i].x+(plants[i].width/2) == zombies[j].x-(zombies[j].width/2)) && plants[i].y == zombies[j].y) {
+				if(this.checkPZCollision(plants[i],zombies[j])) {
+
+					//(this.combat.get(plant[i])).add(zombies[j]);
 					zombies[j].attacking = true;
 					plants[i].hp -= zombies[j].damage;
 					if(plants[i].hp == 0) {
 						delete plants[i];
 						plants.splice(i,1);
 						zombies[j].attacking = false;
+						// don't need to check if other zombies are attacking that plant
+						break;
 					}
 				}
 			}	
@@ -41,6 +56,7 @@ class CollisionDetector {
 					if(zombies[i].hp == 0) {
 						delete zombies[i];
 						zombies.splice(i,1);
+						break;
 					}
 				}
 			}	
