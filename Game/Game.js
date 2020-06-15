@@ -10,7 +10,7 @@ Attributes:
 */
 class Game {
 
-	constructor(grid,gametime=500,sunrate=30,sunval=1,nrows=5,ncols=5) {
+	constructor(grid,gametime=GAMETIME,sunrate=SUNRATE,sunval=SUNVAL,nrows=ROWS,ncols=COLS) {
 		this.sun = 0;
 		this.sunrate = sunrate;
 		this.sunval= sunval;
@@ -27,13 +27,19 @@ class Game {
 		return y;
 	}
 
+	wave1(x,p) {
+		if(x >= 1+p && x <= 7+p) return 1;
+		else if(x > 7+p && x <= 10+p) return 2;
+		
+	}
+
 	/*
 		Generates zombies based on a function passed as argument and 
-		adds a random coeficient between [-beta/2,beta/2], the amont of 
-		that coeficient added to the function is controled by the parameter alpha.
+		adds a random coeficient between [-beta/2,beta/2], the amount of 
+		that coeficient added to the function is controlled by the parameter alpha.
 		The greater the alpha, more randomness is given to the result.   
 	*/
-	GenNumZombies(time,func=this.xsenx,alpha=0,beta=1) {
+	GenNumZombies(time,func=this.const,alpha=0,beta=1) {
 
 		let r = (Math.random()*(2*beta))-beta;
 		let num_zombies = alpha*r + (1-alpha)*func(time);
@@ -48,7 +54,7 @@ class Game {
 
 		while(num_zombies--) {
 			let row = Math.floor(Math.random()*this.nrows);
-			append(wave, new Zombie(3,1,this.ncols-1,row));
+			append(wave, new Zombie(ZOMBIES.normal.hp,ZOMBIES.normal.speed,this.ncols-1,row));
 		}
 
 		return wave;
@@ -62,7 +68,7 @@ class Game {
 
 	// BUG: try to add plant on occupied space costs sun
 	addPlant() {
-		let plant = new Plant(100,0);
+		let plant = new Plant(PLANTS.normal.hp,PLANTS.normal.speed,PLANTS.normal.cadence);
 		if(mouseIsPressed && this.sun >= plant.cost) {
 			this.sun -= plant.cost;
 			let valueX = mouseX; 
