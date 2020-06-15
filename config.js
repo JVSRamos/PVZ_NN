@@ -17,8 +17,14 @@ const ZOMBIES = {
 const PLANTS = {
   normal: {
     hp: 5,
-    speed: 0,
-    cadence: 1/(FR_RATE*5/2)
+    cadence: 1/(FR_RATE*5/2),
+    cost: 100
+  },
+  sunflower: {
+    hp: 5,
+    cadence: 1/(FR_RATE*10),
+    sunval:25,
+    cost: 5
   }
 }
 

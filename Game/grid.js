@@ -1,15 +1,9 @@
 class Grid {
 
-	constructor(nrows=5, ncols=5){
-		this.unit_map = [];
-
-		// initialize the map of unities
-		for(let i = 0; i < nrows;i++) {
-			this.unit_map[i] = [];
-			for(let j = 0; j < nrows;j++) {
-				this.unit_map[i][j] = null;
-			}
-		}
+	constructor(nrows=ROWS, ncols=COLS, sunrate=SUNRATE, sunval=SUNVAL){
+		this.sun = 0;
+		this.sunrate = sunrate;
+		this.sunval= sunval;
 
 		this.bullets = new BulletWrapper();
 		this.plants = new PlantWrapper();
@@ -22,7 +16,15 @@ class Grid {
 		this.rect_height = height/nrows;
 	}
 
+	generateSun() {
+		if(frameCount%this.sunrate == 0) {
+			this.sun += this.sunval;
+		}
+	}
+
 	move() {
+		this.generateSun();
+		this.sun += this.plants.genSun();
 		let volley = this.plants.shoot();
 		this.cd.detectCollision();
 		this.zombies.move();
@@ -32,7 +34,6 @@ class Grid {
 	}
 
 	draw() {
-		// TODO: Create a function for move and one for draw
 		for(let i = 1; i <= this.nrows;i++) {
 			let y = height/this.nrows;
 			line(0,y*i,width,y*i);

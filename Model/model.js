@@ -1,3 +1,4 @@
+import * from './utils.js';
 /*
 Attributes:
 	
@@ -13,20 +14,28 @@ class Encoder {
 		this.Wattention = [];
 		this.Wplants = [];
 		this.Wpos = [];
+		this.Battention = [];
+		this.Bplants = [];
+		this.Bpos = [];
 
 		this.init();
 	}
 
 	init() {
+
 		for(var i = 0; i < this.attention_dim; i++) {
 			this.Wattention[i] = Array.from({length: this.input_dim}, () => (Math.random()));
 		}
 		for(var i = 0; i < this.plants_dim; i++) {
-			this.Wattention[i] = Array.from({length: this.attention_dim}, () => (Math.random()));
+			this.Wplants[i] = Array.from({length: this.attention_dim}, () => (Math.random()));
 		}
 		for(var i = 0; i < this.pos_dim; i++) {
-			this.Wattention[i] = Array.from({length: this.plants_dim+this.attention_dim}, () => (Math.random()));
+			this.Wpos[i] = Array.from({length: this.plants_dim+this.attention_dim}, () => (Math.random()));
 		}
+
+		this.Battention = Array.from({length: this.attention_dim}, () => (Math.random()));	
+		this.Bplants = Array.from({length: this.plants_dim}, () => (Math.random()));	
+		this.Bpos = Array.from({length: this.pos_dim}, () => (Math.random()));	
 
 	}
 
@@ -45,17 +54,6 @@ class Encoder {
 		return x_out;
 	}
 
-	dot(a,b) {
-
-		let result = 0;
-		for(var i = 0; i < a.length; i++) {
-			result += a[i]*b[i];
-		}
-		return result;
-		
-	}
-
-
 	self_attention(x) {
 
 		let score = [];
@@ -67,7 +65,7 @@ class Encoder {
 
 		for(var i = 0; i < x.length; i++) {
 			for(var j = 0; j < x.length; j++) {
-				score[j] = this.dot(x[i],x[j]);		
+				score[j] = utils.dot(x[i],x[j]);		
 			}
 
 			score = this.softmax(score);
@@ -84,11 +82,26 @@ class Encoder {
 
 	}
 
+	feedForward(x,W,b) {
+		return utils.addVet(utils.mulMatVet(W,x),b);
+	}
+
 	// x is a vector containing for each position a vector representing a zombie or a plant
 	forward(x) {
 
 		x = this.self_attention(x);
-		console.log(x);
+
+		let out_attention = [];
+
+		for(var i = 0; i < x[0].length;i++) {
+			out_attention[i] = 0;
+		} 
+
+		for(var i = 0; i < x.length; i++) {
+			out_attention = utils.addVet(this.feedForward(x[i],this.Wattention,this.Battention)out_attention);
+		}
+
+		console.log(out_attention);
 
 	}
 

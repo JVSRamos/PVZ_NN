@@ -12,8 +12,6 @@ class Unit {
 	}
 
 	draw() {
-		let c = color(0, 0, 0);
-		fill(c);
 		ellipse(this.x, this.y, this.width, this.length);
 	}
 

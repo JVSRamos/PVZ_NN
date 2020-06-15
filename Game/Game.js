@@ -10,12 +10,9 @@ Attributes:
 */
 class Game {
 
-	constructor(grid,gametime=GAMETIME,sunrate=SUNRATE,sunval=SUNVAL,nrows=ROWS,ncols=COLS) {
-		this.sun = 0;
-		this.sunrate = sunrate;
-		this.sunval= sunval;
+	constructor(grid,gametime=GAMETIME,nrows=ROWS,ncols=COLS) {
 		this.grid = grid;
-		// Change later if added grid inside class
+		// Change later if grid is added inside this class
 		this.nrows = nrows;
 		this.ncols = ncols;
 		this.gametime = gametime;
@@ -60,17 +57,12 @@ class Game {
 		return wave;
 	}
 
-	generateSun() {
-		if(frameCount%this.sunrate == 0) {
-			this.sun += this.sunval;
-		}
-	}
-
 	// BUG: try to add plant on occupied space costs sun
 	addPlant() {
-		let plant = new Plant(PLANTS.normal.hp,PLANTS.normal.speed,PLANTS.normal.cadence);
-		if(mouseIsPressed && this.sun >= plant.cost) {
-			this.sun -= plant.cost;
+		//let plant = new Plant(PLANTS.normal.hp,PLANTS.normal.speed,PLANTS.normal.cadence);
+		let plant = new SunFlower();
+		if(mouseIsPressed && this.grid.sun >= plant.cost) {
+			this.grid.sun -= plant.cost;
 			let valueX = mouseX; 
 	    	let valueY = mouseY; 
 	    	let i,j;
@@ -106,12 +98,11 @@ class Game {
 			}
 
 			this.addPlant();
-			this.generateSun();
 			this.grid.move();
 			if(display) {
 				this.grid.draw();
 				textSize(25);
-				text("sun = "+this.sun,10,25);
+				text("sun = "+this.grid.sun,10,25);
 			}
 		}
 	}

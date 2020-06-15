@@ -26,6 +26,21 @@ class PlantWrapper {
 		return bullets;
 	}
 
+	genSun() {
+
+		let total = 0;
+
+		for (var i = 0; i < this.plants.length; i++) { 
+			if(this.plants[i] instanceof SunFlower) {
+				total += this.plants[i].genSun();
+				console.log(total);
+			}
+		}
+
+		return total;
+		
+	}
+
 	draw() {
 		for (var i = 0; i < this.plants.length; i++) { 
 			this.plants[i].draw();
