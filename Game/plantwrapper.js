@@ -5,13 +5,15 @@ class PlantWrapper {
 	}
 
 	addPlant(unit) {
-		// check if the place is occupied
-		let occupied = false;
-		for (var i = 0; i < this.plants.length; i++) { 
-			if(this.plants[i].x == unit.x && this.plants[i].y == unit.y) occupied = true;
-		}	
+		if(unit != null) append(this.plants, unit);		
+	}
 
-		if((unit != null) && !occupied) append(this.plants, unit);	
+	checkOccupation(unit) {
+		for (var i = 0; i < this.plants.length; i++) { 
+			if(this.plants[i].x == unit.x && this.plants[i].y == unit.y) return true;
+		}
+
+		return false;	
 	}
 
 	shoot() {
@@ -33,7 +35,6 @@ class PlantWrapper {
 		for (var i = 0; i < this.plants.length; i++) { 
 			if(this.plants[i] instanceof SunFlower) {
 				total += this.plants[i].genSun();
-				console.log(total);
 			}
 		}
 

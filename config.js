@@ -6,6 +6,7 @@ const COLS = 9;
 const GAMETIME = FR_RATE*120;
 const SPAWNRATE = FR_RATE*5;
 const NPLANTS = 1;
+const BACKPATH = "Assets/back.png";
 
 const ZOMBIES = {
   normal: {
@@ -18,6 +19,7 @@ const PLANTS = {
   normal: {
     hp: 5,
     cadence: 1/(FR_RATE*5/2),
+    img:"Assets/normal.gif",
     cost: 100
   },
   sunflower: {

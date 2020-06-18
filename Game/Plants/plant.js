@@ -34,4 +34,10 @@ class Plant extends Unit {
 		return null;
 	}
 
+	draw() {
+		//var normalPlantImg = createImg(PLANTS.normal.img,"");
+		//normalPlantImg.position(this.x, this.y);
+		ellipse(this.x, this.y, this.width, this.length);
+	}
+
 }

@@ -10,12 +10,13 @@ Attributes:
 */
 class Game {
 
-	constructor(grid,gametime=GAMETIME,nrows=ROWS,ncols=COLS) {
+	constructor(grid,display=true,gametime=GAMETIME,nrows=ROWS,ncols=COLS) {
 		this.grid = grid;
 		// Change later if grid is added inside this class
 		this.nrows = nrows;
 		this.ncols = ncols;
 		this.gametime = gametime;
+		this.display = display;
 	}
 
 	xsenx(x) {
@@ -57,20 +58,21 @@ class Game {
 		return wave;
 	}
 
-	// BUG: try to add plant on occupied space costs sun
 	addPlant() {
-		//let plant = new Plant(PLANTS.normal.hp,PLANTS.normal.speed,PLANTS.normal.cadence);
-		let plant = new SunFlower();
+		let plant = new Plant(PLANTS.normal.hp,PLANTS.normal.speed,PLANTS.normal.cadence);
 		if(mouseIsPressed && this.grid.sun >= plant.cost) {
-			this.grid.sun -= plant.cost;
 			let valueX = mouseX; 
 	    	let valueY = mouseY; 
 	    	let i,j;
 	    	[i,j] = this.grid.getGridPos(valueX,valueY);
 	    	plant.setCoordenates(i,j);
-	    	this.grid.addUnit(plant);		
+
+	    	if(!this.grid.checkOccupation(plant)) {
+	    		this.grid.addUnit(plant);			
+	    		this.grid.sun -= plant.cost;
+	    	}	
+
 		}
-		
 	}
 
 	// The return is of the format [endOfGame,win]
@@ -85,7 +87,7 @@ class Game {
 		return [false,false];
 	} 
 
-	play(display=true) {
+	play() {
 		if (!end) {
 			[end,win] = this.endGame();
 
@@ -99,12 +101,13 @@ class Game {
 
 			this.addPlant();
 			this.grid.move();
-			if(display) {
+			if(this.display) {
 				this.grid.draw();
 				textSize(25);
 				text("sun = "+this.grid.sun,10,25);
 			}
 		}
+
 	}
 	
 }

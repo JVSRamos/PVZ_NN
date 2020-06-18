@@ -68,6 +68,10 @@ class Grid {
 		return [i,j];
 	}
 
+	checkOccupation(unit) {
+		return this.plants.checkOccupation(unit);
+	}
+
 	// May be deprecated later
 	addUnitToCell(unit,i,j){
 		this.unit_map[i][j] = unit;
