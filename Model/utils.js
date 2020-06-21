@@ -1,13 +1,14 @@
-export function dot(a,b) {
+function dot(a,b) {
 
 	let result = 0;
 	for(var i = 0; i < a.length; i++) {
 		result += a[i]*b[i];
 	}
+
 	return result;		
 }
 
-export function mulMatVet(m,v) {
+function mulMatVet(m,v) {
 
 	let result = [];
 
@@ -18,7 +19,7 @@ export function mulMatVet(m,v) {
 	return result;
 }
 
-export function addVet(a,b) {
+function addVet(a,b) {
 
 	let c = [];
 

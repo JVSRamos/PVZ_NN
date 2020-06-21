@@ -35,7 +35,7 @@ class Grid {
 
 	draw() {
 		for(let i = 1; i <= this.nrows;i++) {
-			let y = height/this.nrows;
+			let y = (height)/this.nrows;
 			line(0,y*i,width,y*i);
 			stroke(255);
 		}

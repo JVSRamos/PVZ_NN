@@ -1,11 +1,10 @@
-import * from './utils.js';
 /*
 Attributes:
 	
 */
 class Encoder {
 
-	constructor(input_dim=5,attention_dim=5,plants_dim=NPLANTS,pos_dim=ROWS*COLS) {
+	constructor(input_dim=2,attention_dim=5,plants_dim=NPLANTS,pos_dim=ROWS*COLS) {
 		this.input_dim = input_dim;
 		this.attention_dim = attention_dim;
 		this.plants_dim = plants_dim;
@@ -65,10 +64,10 @@ class Encoder {
 
 		for(var i = 0; i < x.length; i++) {
 			for(var j = 0; j < x.length; j++) {
-				score[j] = utils.dot(x[i],x[j]);		
+				score[j] = dot(x[i],x[j]);		
 			}
 
-			score = this.softmax(score);
+			//score = this.softmax(score);
 
 			for(var k = 0; k < x.length; k++) {
 				//x_new[i] += score[k]*x[k];
@@ -83,7 +82,7 @@ class Encoder {
 	}
 
 	feedForward(x,W,b) {
-		return utils.addVet(utils.mulMatVet(W,x),b);
+		return addVet(mulMatVet(W,x),b);
 	}
 
 	// x is a vector containing for each position a vector representing a zombie or a plant
@@ -93,15 +92,13 @@ class Encoder {
 
 		let out_attention = [];
 
-		for(var i = 0; i < x[0].length;i++) {
+		for(var i = 0; i < this.attention_dim;i++) {
 			out_attention[i] = 0;
 		} 
 
 		for(var i = 0; i < x.length; i++) {
-			out_attention = utils.addVet(this.feedForward(x[i],this.Wattention,this.Battention)out_attention);
+			out_attention = addVet(this.feedForward(x[i],this.Wattention,this.Battention),out_attention);
 		}
-
-		console.log(out_attention);
 
 	}
 
