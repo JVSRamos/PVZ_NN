@@ -29,3 +29,26 @@ function addVet(a,b) {
 
 	return c;
 }
+
+function getIndexMax(v) {
+
+	let maxi = 0;
+	let maxv = -0x3f3f3f;
+
+	for(var i = 0; i < v.length; i++) {
+		if(v[i] > maxv) {
+			maxv = v[i];
+			maxi = i;
+		}
+	}
+
+	return maxi;
+
+}
+
+
+function posVetToMatrix(v,x=ROWS,y=COLS) {
+	return [Math.floor(v/y),v%y];
+}
+
+

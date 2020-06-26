@@ -4,7 +4,7 @@ Attributes:
 */
 class Encoder {
 
-	constructor(input_dim=2,attention_dim=5,plants_dim=NPLANTS,pos_dim=ROWS*COLS) {
+	constructor(input_dim=2,attention_dim=5,plants_dim=NPLANTS+1,pos_dim=ROWS*COLS) {
 		this.input_dim = input_dim;
 		this.attention_dim = attention_dim;
 		this.plants_dim = plants_dim;
@@ -99,6 +99,19 @@ class Encoder {
 		for(var i = 0; i < x.length; i++) {
 			out_attention = addVet(this.feedForward(x[i],this.Wattention,this.Battention),out_attention);
 		}
+
+		let plant_choice = this.feedForward(out_attention,this.Wplants,this.Bplants);	
+
+		let pos_x = plant_choice.concat(out_attention);
+		let pos_choice = this.feedForward(pos_x,this.Wpos,this.Bpos);
+
+		pos_choice = this.softmax(pos_choice);
+		plant_choice = this.softmax(plant_choice);
+
+		let pos = getIndexMax(pos_choice);		
+		let plant = getIndexMax(plant_choice);		
+
+		return [plant,posVetToMatrix(pos)];
 
 	}
 

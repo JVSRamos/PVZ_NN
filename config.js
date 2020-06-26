@@ -1,7 +1,7 @@
 const FR_RATE = 30; // frame/second
 const SUNRATE = FR_RATE*10;
 const SUNVAL = 25;
-const ROWS = 5;
+const ROWS = 6;
 const COLS = 9;
 const GAMETIME = FR_RATE*120;
 const SPAWNRATE = FR_RATE*5;
